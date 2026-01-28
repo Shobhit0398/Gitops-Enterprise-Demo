@@ -26,7 +26,7 @@ jobs:
 
       - name: Update dev env (auto)
         run: |
-          git clone https://github.com/YOUR_USER/helm-repo.git
+          git clone https://github.com/Shobhit0398/helm-repo.git
           cd helm-repo/environments/dev
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to dev"
@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Promote to stage
         run: |
-          git clone https://github.com/YOUR_USER/helm-repo.git
+          git clone https://github.com/Shobhit0398/helm-repo.git
           cd helm-repo/environments/stage
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to stage"
@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Promote to prod
         run: |
-          git clone https://github.com/YOUR_USER/helm-repo.git
+          git clone https://github.com/Shobhit0398/helm-repo.git
           cd helm-repo/environments/prod
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to prod"
