@@ -4,6 +4,7 @@ metadata:
   name: demo-dev
   namespace: argocd
 spec:
+  project: default
   source:
     repoURL: https://github.com/Shobhit0398/helm-repo.git
     targetRevision: main
