@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send(process.env.APP_VERSION || "Stable Version");
+  res.send(process.env.APP_VERSION || "Stabler Version");
 });
 
 app.get("/health", (req, res) => {
