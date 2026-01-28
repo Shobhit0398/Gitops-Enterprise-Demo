@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE: asia-south1-docker.pkg.dev/PROJECT_ID/gitops/demo-app
+  IMAGE: asia-south1-docker.pkg.dev/GCP_PROJECT_ID/gitops/demo-app
 
 jobs:
   build:
