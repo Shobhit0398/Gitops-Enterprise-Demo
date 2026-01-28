@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   source:
-    repoURL: https://github.com/YOUR_USER/helm-repo.git
+    repoURL: https://github.com/Shobhit0398/helm-repo.git
     targetRevision: main
     path: charts/demo-app
     helm:
