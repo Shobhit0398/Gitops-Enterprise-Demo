@@ -1,0 +1,30 @@
+replicaCount: 3
+
+image:
+  repository: asia-south1-docker.pkg.dev/PROJECT_ID/gitops/demo-app
+  tag: latest
+
+service:
+  port: 80
+  targetPort: 3000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+rollout:
+  canary:
+    enabled: true
+    steps:
+      - setWeight: 20
+      - pause: {duration: 60s}
+      - setWeight: 50
+      - pause: {duration: 120s}
+      - setWeight: 100
+
+env:
+  APP_VERSION: stable

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-prod
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://github.com/YOUR_USER/helm-repo.git
+    targetRevision: main
+    path: charts/demo-app
+    helm:
+      valueFiles:
+        - ../../environments/prod/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

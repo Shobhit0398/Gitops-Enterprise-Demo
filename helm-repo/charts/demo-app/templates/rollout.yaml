@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "demo-app.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "demo-app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "demo-app.name" . }}
+    spec:
+      containers:
+      - name: app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: APP_VERSION
+          value: "{{ .Values.env.APP_VERSION }}"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+  strategy:
+    canary:
+      steps:
+{{ toYaml .Values.rollout.canary.steps | indent 8 }}

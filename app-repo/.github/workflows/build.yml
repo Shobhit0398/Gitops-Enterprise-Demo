@@ -1,0 +1,59 @@
+name: Build & Promote
+
+on:
+  push:
+    branches: ["main"]
+
+env:
+  IMAGE: asia-south1-docker.pkg.dev/PROJECT_ID/gitops/demo-app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: asia-south1-docker.pkg.dev
+          username: _json_key
+          password: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Build & push image
+        run: |
+          docker build -t $IMAGE:${{ github.sha }} .
+          docker push $IMAGE:${{ github.sha }}
+
+      - name: Update dev env (auto)
+        run: |
+          git clone https://github.com/YOUR_USER/helm-repo.git
+          cd helm-repo/environments/dev
+          sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
+          git commit -am "Promote ${{ github.sha }} to dev"
+          git push
+
+  promote-stage:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: stage   # GitHub approval gate
+    steps:
+      - name: Promote to stage
+        run: |
+          git clone https://github.com/YOUR_USER/helm-repo.git
+          cd helm-repo/environments/stage
+          sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
+          git commit -am "Promote ${{ github.sha }} to stage"
+          git push
+
+  promote-prod:
+    needs: promote-stage
+    runs-on: ubuntu-latest
+    environment: prod    # Approval gate
+    steps:
+      - name: Promote to prod
+        run: |
+          git clone https://github.com/YOUR_USER/helm-repo.git
+          cd helm-repo/environments/prod
+          sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
+          git commit -am "Promote ${{ github.sha }} to prod"
+          git push

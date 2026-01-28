@@ -1,0 +1,5 @@
+image:
+  tag: prod
+
+env:
+  APP_VERSION: prod
