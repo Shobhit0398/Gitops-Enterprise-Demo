@@ -21,8 +21,8 @@ jobs:
 
       - name: Prepare Image Name
         run: |
-          # Convert the image path to lowercase using bash parameter expansion
-          echo "IMAGE_LOWER=${IMAGE,,}" >> $GITHUB_ENV
+          RAW_IMAGE="asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gitops/demo-app"
+          echo "IMAGE_LOWER=${RAW_IMAGE,,}" >> $GITHUB_ENV
         env:
           IMAGE: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gitops/demo-app
 
