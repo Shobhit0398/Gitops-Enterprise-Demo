@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE: asia-south1-docker.pkg.dev/GCP_PROJECT_ID/gitops/demo-app
+  IMAGE: us-central1-docker.pkg.dev/GCP_PROJECT_ID/k8s-lab/demo-app
 
 jobs:
   build:
@@ -15,16 +15,16 @@ jobs:
 
       - uses: docker/login-action@v3
         with:
-          registry: asia-south1-docker.pkg.dev
+          registry: us-central1-docker.pkg.dev
           username: _json_key
           password: ${{ secrets.GCP_SA_KEY }}
 
       - name: Prepare Image Name
         run: |
-          RAW_IMAGE="asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gitops/demo-app"
+          RAW_IMAGE="us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/k8s-lab/demo-app"
           echo "IMAGE_LOWER=${RAW_IMAGE,,}" >> $GITHUB_ENV
         env:
-          IMAGE: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gitops/demo-app
+          IMAGE: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/k8s-lab/demo-app
 
       - name: Locate My Files
         run: |
