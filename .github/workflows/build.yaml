@@ -40,6 +40,8 @@ jobs:
       - name: Update dev env (auto)
         run: |
           cd helm-repo/environments/dev
+          git config --local user.email "shobhitnagar71@gmail.com"
+          git config --local user.name "Shobhit0398"
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to dev"
           git push
