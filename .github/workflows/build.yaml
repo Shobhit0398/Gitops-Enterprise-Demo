@@ -39,7 +39,6 @@ jobs:
 
       - name: Update dev env (auto)
         run: |
-          git clone https://github.com/Shobhit0398/helm-repo.git
           cd helm-repo/environments/dev
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to dev"
