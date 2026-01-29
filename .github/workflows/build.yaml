@@ -28,8 +28,8 @@ jobs:
 
       - name: Build & push image
         run: |
-          docker build -t $IMAGE:${{ github.sha }} .
-          docker push $IMAGE:${{ github.sha }}
+          docker build -t ${{ env.IMAGE_LOWER }}:${{ github.sha }} .
+          docker push ${{ env.IMAGE_LOWER }}:${{ github.sha }}
 
       - name: Update dev env (auto)
         run: |
