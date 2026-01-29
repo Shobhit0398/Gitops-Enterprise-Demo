@@ -31,10 +31,10 @@ jobs:
           echo "Current directory is: $(pwd)"
           echo "Listing all files in the repository:"
           ls -R
-          
+
       - name: Build & push image
         run: |
-          docker build -t ${{ env.IMAGE_LOWER }}:${{ github.sha }} .
+          docker build -t ${{ env.IMAGE_LOWER }}:${{ github.sha }} -f app-repo/Dockerfile app-repo/
           docker push ${{ env.IMAGE_LOWER }}:${{ github.sha }}
 
       - name: Update dev env (auto)
