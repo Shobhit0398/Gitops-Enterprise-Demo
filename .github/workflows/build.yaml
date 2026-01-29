@@ -26,6 +26,12 @@ jobs:
         env:
           IMAGE: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gitops/demo-app
 
+      - name: Locate My Files
+        run: |
+          echo "Current directory is: $(pwd)"
+          echo "Listing all files in the repository:"
+          ls -R
+          
       - name: Build & push image
         run: |
           docker build -t ${{ env.IMAGE_LOWER }}:${{ github.sha }} .
