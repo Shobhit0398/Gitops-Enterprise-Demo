@@ -59,7 +59,7 @@ jobs:
       - name: Promote to stage
         run: |
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/Shobhit0398/Gitops-Enterprise-Demo.git
-          cd Gitops-Enterprise-Demo/environments/stage
+          cd Gitops-Enterprise-Demo/helm-repo/environments/stage
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to stage"
           git push
