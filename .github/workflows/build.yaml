@@ -64,6 +64,7 @@ jobs:
           git config --global user.name "Shobhit0398"
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to stage"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Shobhit0398/Gitops-Enterprise-Demo.git
           git push
 
   promote-prod:
