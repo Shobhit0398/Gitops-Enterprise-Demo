@@ -75,7 +75,10 @@ jobs:
       - name: Promote to prod
         run: |
           git clone https://x-access-token:${{secrets.HELM_REPO_TOKEN}}@github.com/Shobhit0398/Gitops-Enterprise-Demo.git
-          cd helm-repo/environments/prod
+          cd Gitops-Enterprise-Demo/helm-repo/environments/stage
+          git config --global user.email "shobhitnagar71@gmail.com"
+          git config --global user.name "Shobhit0398"
           sed -i "s/tag:.*/tag: \"${{ github.sha }}\"/g" values.yaml
           git commit -am "Promote ${{ github.sha }} to prod"
+          git remote set-url origin https://x-access-token:${{secrets.HELM_REPO_TOKEN}}@github.com/Shobhit0398/Gitops-Enterprise-Demo.git
           git push
