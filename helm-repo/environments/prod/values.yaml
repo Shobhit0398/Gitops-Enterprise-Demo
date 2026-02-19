@@ -1,5 +1,5 @@
 image:
-  tag: "103cc238dc0653a0127997823ba0b021cf53db14"
+  tag: "183ca33a37d29aa0cf622119d836d9eb44f3ef50"
 
 env:
   APP_VERSION: stage
