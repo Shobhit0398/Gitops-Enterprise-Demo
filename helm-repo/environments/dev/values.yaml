@@ -1,5 +1,5 @@
 image:
-  tag: "ece98968ba2206ce4ba718bfe1bea8836c3c7a34"
+  tag: "e1e187fbe733fc3990ea62bd9539bf7e634c5e1f"
 
 env:
   APP_VERSION: dev
